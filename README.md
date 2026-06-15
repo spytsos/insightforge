@@ -15,6 +15,16 @@ The application helps analysts, consultants, investors and engineers extract ins
 * Opportunity indicator detection
 * Consulting prompt generation
 
+## Screenshots
+
+### Home Screen
+
+![Home](screenshots/home.png)
+
+### Analysis Engine
+
+![Analysis](screenshots/analysis.png)
+
 ## Analysis Workflows
 
 * Executive Summary
