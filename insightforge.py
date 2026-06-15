@@ -47,6 +47,14 @@ opportunity_words = [
     "development"
 ]
 
+document_types = {
+    "Risk Assessment": ["risk", "uncertainty", "mitigation", "challenge", "constraint"],
+    "Investment Report": ["investment", "return", "financial", "capital", "revenue"],
+    "Market Intelligence": ["market", "growth", "competition", "demand", "forecast"],
+    "Technical Report": ["technical", "engineering", "performance", "model", "system"],
+    "Due Diligence Report": ["due diligence", "assessment", "valuation", "risk", "recommendation"]
+}
+
 stop_words = {
     "the", "and", "for", "that", "with", "this", "from",
     "are", "was", "were", "has", "have", "will", "not",
@@ -88,6 +96,20 @@ def count_indicators(text, words):
         if text_lower.count(word) > 0
     }
 
+def classify_document(text):
+    text_lower = text.lower()
+
+    scores = {}
+
+    for document_type, keywords in document_types.items():
+        scores[document_type] = sum(
+            text_lower.count(keyword)
+            for keyword in keywords
+        )
+
+    best_match = max(scores, key=scores.get)
+
+    return best_match, scores[best_match]
 
 if uploaded_file:
 
@@ -97,6 +119,10 @@ if uploaded_file:
     character_count = len(text)
 
     st.success("Document processed successfully")
+
+    document_type, confidence_score = classify_document(text)
+
+    st.info(f"Detected Document Type: {document_type}")
 
     col1, col2, col3 = st.columns(3)
 
